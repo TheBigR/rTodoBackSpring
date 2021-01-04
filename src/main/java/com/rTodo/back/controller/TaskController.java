@@ -49,12 +49,12 @@ public class TaskController {
 	
 	@RequestMapping("/update")
 	public String update(
+			@RequestParam String muuid,
 			@RequestParam String title,
-			@RequestParam String newTitle,
 			@RequestParam long updateTime,
 			@RequestParam boolean done
 			) {
-		Task t = taskService.update(title, newTitle, updateTime, done);
+		Task t = taskService.update(muuid, title, updateTime, done);
 		return t.toString();
 	}
 	
