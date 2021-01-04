@@ -6,18 +6,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Task {
 	@Id
-	String id;
+	String id;	
 	String title;
-	int creationTime;
-	int updateTime;
+	long creationTime;
+	long updateTime;
 	boolean done;
+	String muuid;
 
-
-	public Task(String title, int creationTime, int updateTime, boolean done) {
+	public Task(String title, long creationTime, long updateTime, boolean done, String muuid) {
 		this.title = title;
 		this.creationTime = creationTime;
 		this.updateTime = updateTime;
 		this.done = done;
+		this.muuid = muuid;
 	}
 
 
@@ -31,6 +32,16 @@ public class Task {
 	}
 
 
+	public String getMuuid() {
+		return muuid;
+	}
+
+
+	public void setMuuid(String muuid) {
+		this.muuid = muuid;
+	}
+
+
 	public String getTitle() {
 		return title;
 	}
@@ -41,22 +52,22 @@ public class Task {
 	}
 
 
-	public int getCreationTime() {
+	public long getCreationTime() {
 		return creationTime;
 	}
 
 
-	public void setCreationTime(int creationTime) {
+	public void setCreationTime(long creationTime) {
 		this.creationTime = creationTime;
 	}
 
 
-	public int getUpdateTime() {
+	public long getUpdateTime() {
 		return updateTime;
 	}
 
 
-	public void setUpdateTime(int updateTime) {
+	public void setUpdateTime(long updateTime) {
 		this.updateTime = updateTime;
 	}
 }

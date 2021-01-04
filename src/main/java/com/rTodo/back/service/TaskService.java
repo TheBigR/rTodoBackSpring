@@ -14,21 +14,25 @@ public class TaskService {
 	@Autowired
 	private TaskRepository taskRepository;
 	
-	public Task create(String title, int creationTime, int updateTime, boolean done) {
-		return taskRepository.save(new Task(title, creationTime, updateTime, done));
+	public Task create(String title, long creationTime, long updateTime, boolean done, String muuid) {		
+		return taskRepository.save(new Task(title, creationTime, updateTime, done, muuid));
 	}
 	
 	public List<Task> getAll() {
 		return taskRepository.findAll();		
 	}
 	
-	public Task getByTitle(String title) {
+	public List<Task> getByTitle(String title) {
 		return taskRepository.findByTitle(title);
 	}
 	
-	public Task update(String title,String newTitle, int updateTime, boolean done) {
-		Task t = taskRepository.findByTitle(title);
-		t.setTitle(newTitle);
+	public Task getByUuid(String uuid) {
+		return taskRepository.findByMuuid(uuid);
+	}
+	
+	public Task update(String uuid,String title, long updateTime, boolean done) {
+		Task t = taskRepository.findByMuuid(uuid);
+		t.setTitle(title);
 		t.setUpdateTime(updateTime);
 		t.setDone(done);
 		return taskRepository.save(t);
@@ -38,8 +42,8 @@ public class TaskService {
 		taskRepository.deleteAll();
 	}
 	
-	public void delete(String title) {
-		Task t = taskRepository.findByTitle(title);
+	public void delete(String uuid) {
+		Task t = taskRepository.findByMuuid(uuid);
 		taskRepository.delete(t);
 	}	
 }

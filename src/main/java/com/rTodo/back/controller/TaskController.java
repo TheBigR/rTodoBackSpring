@@ -1,6 +1,7 @@
 package com.rTodo.back.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,17 +20,23 @@ public class TaskController {
 	@RequestMapping("/create")
 	public String create(
 			@RequestParam String title, 
-			@RequestParam int creationTime,
-			@RequestParam int updateTime,
+			@RequestParam long creationTime,
+			@RequestParam long updateTime,
 			@RequestParam boolean done
 			) {
-		Task t = taskService.create(title, creationTime, updateTime, done);
+		String muuid = UUID.randomUUID().toString().replace("-", "");
+		Task t = taskService.create(title, creationTime, updateTime, done, muuid);
 		return t.toString();
 	}
 	
-	@RequestMapping("/get")
-	public Task getTask(@RequestParam String title) {
+	@RequestMapping("/getByTitle")
+	public List<Task> getTasksByTitle(@RequestParam String title) {
 		return taskService.getByTitle(title);
+	}
+	
+	@RequestMapping("/getByUuid")
+	public Task getTaskByUuid(@RequestParam String uuid) {
+		return taskService.getByUuid(uuid);
 	}
 	
 	@RequestMapping("/getAll")
@@ -41,7 +48,7 @@ public class TaskController {
 	public String update(
 			@RequestParam String title,
 			@RequestParam String newTitle,
-			@RequestParam int updateTime,
+			@RequestParam long updateTime,
 			@RequestParam boolean done
 			) {
 		Task t = taskService.update(title, newTitle, updateTime, done);
@@ -49,9 +56,9 @@ public class TaskController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam String title) {
-		taskService.delete(title);
-		return "Deleted " + title;
+	public String delete(@RequestParam String uuid) {
+		taskService.delete(uuid);
+		return "Deleted " + uuid;
 	}	
 	
 	@RequestMapping("/deleteAll")
