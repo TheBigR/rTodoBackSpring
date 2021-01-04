@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,9 @@ import com.rTodo.back.model.Task;
 import com.rTodo.back.service.TaskService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
+	
 
 	@Autowired
 	private TaskService taskService;
